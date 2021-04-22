@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+const morgan = require('morgan')
+
 app.use(express.json())
 
 let persons = [
@@ -27,6 +29,12 @@ let persons = [
 ]
 
 const date = new Date()
+
+app.use(morgan('tiny'))
+
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
 
 // Info Page
 app.get('/info', (request, response) => {
