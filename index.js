@@ -40,10 +40,6 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
-const PORT = 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
 
 // Get one person by id
 app.get('/api/persons/:id', (request, response) => {
@@ -55,4 +51,20 @@ app.get('/api/persons/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+})
+
+// Delete person
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  persons = persons.filter(person => person.id !== id)
+
+  response.status(204).end()
+})
+
+
+
+// Run Port 3001
+const PORT = 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
