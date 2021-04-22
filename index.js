@@ -73,6 +73,8 @@ app.post('/api/persons', (request, response) => {
   const body = request.body
   console.log('request', request)
 
+  const personExists = persons.find(person => person.name === body.name)
+
   if (!body.name) {
     return response.status(400).json({ 
       error: 'Name missing.' 
@@ -84,6 +86,13 @@ app.post('/api/persons', (request, response) => {
       error: 'Number missing.' 
     })
   }
+
+  if (personExists) {
+    return response.status(400).json({
+      error: 'Person already exists.'
+    })
+  }
+  
 
   const person = {
     id: generateId(),
