@@ -63,18 +63,19 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
-
+// Generate random id for added person
 const generateId = () => {
   const randomNumber = Math.floor(Math.random() * 10000)
   return randomNumber
 }
+
 // Add person
 app.post('/api/persons', (request, response) => {
   const body = request.body
   console.log('request', request)
 
-  const personExists = persons.find(person => person.name === body.name)
-
+  
+  // If trying to post without name or number, throw error
   if (!body.name) {
     return response.status(400).json({ 
       error: 'Name missing.' 
@@ -87,13 +88,15 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
+  // If person already exists in phonebook, throw error
+  const personExists = persons.find(person => person.name === body.name)
+
   if (personExists) {
     return response.status(400).json({
       error: 'Person already exists.'
     })
   }
   
-
   const person = {
     id: generateId(),
     name: body.name,
