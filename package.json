@@ -1,0 +1,23 @@
+{
+  "name": "phonebook-backend",
+  "version": "1.0.0",
+  "description": "phonebook-backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "testing 123"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adriencyberspace/fso-pt3.git"
+  },
+  "author": "Adrien",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adriencyberspace/fso-pt3/issues"
+  },
+  "homepage": "https://github.com/adriencyberspace/fso-pt3#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
