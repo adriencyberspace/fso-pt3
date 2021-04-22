@@ -1,3 +1,4 @@
+const { response } = require('express')
 const express = require('express')
 const app = express()
 
@@ -30,7 +31,9 @@ let persons = [
 
 const date = new Date()
 
-app.use(morgan('tiny'))
+
+morgan.token('body', (req, res) => JSON.stringify(req.body));
+app.use(morgan(':method :url :status :response-time ms - :body'));
 
 app.get('/', function (req, res) {
   res.send('hello, world!')
