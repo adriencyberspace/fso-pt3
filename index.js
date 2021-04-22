@@ -26,6 +26,7 @@ let persons = [
 
 const date = new Date()
 
+// Info Page
 app.get('/info', (request, response) => {
   response
     .send(`
@@ -34,6 +35,7 @@ app.get('/info', (request, response) => {
     <div>${date}</div>`)
 })
 
+// Get all persons
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
@@ -41,4 +43,16 @@ app.get('/api/persons', (request, response) => {
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+})
+
+// Get one person by id
+app.get('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const person = persons.find(person => person.id === id)
+  
+  if (person) {
+    response.json(person)
+  } else {
+    response.status(404).end()
+  }
 })
