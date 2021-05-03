@@ -33,15 +33,6 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger)
 
-// Info Page
-app.get('/info', (request, response) => {
-  response
-    .send(`
-    <div>Phone book has info for ${persons.length} people.</div>
-    <br>
-    <div>${date}</div>`)
-})
-
 // Fetch all persons
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(people => {
@@ -96,7 +87,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 // Delete person
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(result => { // eslint-disable-line no-unused-vars
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -112,7 +103,7 @@ app.use(errorHandler)
 
 
 // Run Port 3001
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001 // eslint-disable-line no-undef
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
