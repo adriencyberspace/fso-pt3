@@ -12,12 +12,13 @@ GET http://localhost:3001/api/persons/608356852a74d0d7b17d6071
 
 # Add new person
 
-POST https://mighty-plateau-33606.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons/
+Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Greg",
-  "number": "777-777-7777"
+  "name": "Test",
+  "number": "555-5555"
 }
 
 ###
