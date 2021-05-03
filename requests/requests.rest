@@ -16,8 +16,8 @@ POST https://mighty-plateau-33606.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-  "name": "Adrien",
-  "number": "111-111-1111"
+  "name": "Greg",
+  "number": "777-777-7777"
 }
 
 ###

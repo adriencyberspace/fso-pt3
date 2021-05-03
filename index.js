@@ -8,7 +8,7 @@ app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 
-// Handle errors - exception is if id is malformatted
+// Handle errors
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
@@ -33,11 +33,6 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger)
 
-// Homepage
-app.get('/', function (req, res) {
-  res.send('hello, world!')
-})
-
 // Info Page
 app.get('/info', (request, response) => {
   response
@@ -61,14 +56,9 @@ app.get('/api/persons/:id', (request, response) => {
   })
 })
 
-// Generate random id for added person
-const generateId = () => {
-  const randomNumber = Math.floor(Math.random() * 10000)
-  return randomNumber
-}
 
 // Add person
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (body.name === undefined) {
@@ -87,29 +77,21 @@ app.post('/api/persons', (request, response) => {
 
   person
     .save()
-    .then(savedPerson => savedPerson.toJSON())
-    .then(savedAndFormattedPerson => {
-    response.json(savedAndFormattedPerson)
-  })
-  .catch(error => next(error))
+    .then((savedPerson) => {
+      response.json(savedPerson.toJSON())
+    })
+    .catch((error) => next(error))
 })
 
-// TODO:
 // If name already exists, update person
-// app.put('/api/persons/:id', (request, response, next) => {
-//   const body = request.body
+app.put('/api/persons/:id', (request, response, next) => {
 
-//   const person = {
-//     name: body.name,
-//     number: body.number
-//   }
-
-//   Person.findByIdAndUpdate(request.params.id, person, { new: true })
-//     .then(updatedPerson => {
-//       response.json(updatedPerson)
-//     })
-//     .catch(error => next(error))
-// })
+  Person.findByIdAndUpdate(request.params.id, request.body, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson.toJSON())
+    })
+    .catch(error => next(error))
+})
 
 // Delete person
 app.delete('/api/persons/:id', (request, response, next) => {
